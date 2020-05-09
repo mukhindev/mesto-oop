@@ -1,17 +1,16 @@
 # Проект 4: Место
 
-### Обзор
+https://mukhindev-praktikum.github.io/russian-travel/
 
-* Figma
-* Картинки
+## Что это?
 
-**Figma**
+Самостоятельная практическая работа, выполненная в рамках обучения на курсе [Веб-разработчик](https://praktikum.yandex.ru/web) от [Яндекс.Практикум](https://praktikum.yandex.ru) на спринте №4.
 
-* [Ссылка на макет в Figma](https://www.figma.com/file/StZjf8HnoeLdiXS7dYrLAh/JavaScript.-Sprint-4)
+## Copyright
 
-**Картинки**
+* Шрифты семейства Intro — https://rsms.me/inter/
+* Изображения взяты с [unsplash.com](https://unsplash.com)
 
-Доставать картинки предстоит из Фигмы. Это расхожая практика, поэтому полезно потренироваться.
-Не забудьте [оптимизировать картинки](https://tinypng.com/), чтобы ваш сайт загружался быстрее.
+## Технологии
 
-Удачи!
+HTML, CSS (Flex, Grid, BEM), JavaScript

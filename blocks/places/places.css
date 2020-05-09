@@ -7,12 +7,14 @@
 
 @media (max-width: 768px) {
   .places {
+    padding: 32px 0 0;
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
 @media (max-width: 425px) {
   .places {
+    gap: 20px;
     grid-template-columns: repeat(1, minmax(0, 1fr));
   }
 }

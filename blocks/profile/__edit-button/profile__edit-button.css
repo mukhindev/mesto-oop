@@ -8,6 +8,8 @@
   background-repeat: no-repeat;
   background-position: center;
   background-size: 10px 10px;
+  transition: 0.25s;
+  vertical-align: text-bottom;
 }
 
 .profile__edit-button:hover {
@@ -17,6 +19,7 @@
 
 .profile__edit-button:focus {
   outline: 2px solid rgba(0, 195, 255, 0.5);
+  outline-offset: 1px;
 }
 
 @media (max-width: 768px) {
