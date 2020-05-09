@@ -1,0 +1,9 @@
+.place__like {
+  width: 21px;
+  height: 18px;
+  margin-left: 12px;
+  background-image: url('../../../images/place/__like_false.svg');
+  background-repeat: no-repeat;
+  background-size: contain;
+  flex-shrink: 0;
+}
