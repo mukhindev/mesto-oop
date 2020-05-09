@@ -22,7 +22,7 @@
   outline-offset: 1px;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 425px) {
   .profile__edit-button {
     margin: 0 0 0 8px;
     width: 18px;
