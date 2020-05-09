@@ -1,6 +1,6 @@
 # Проект 4: Место
 
-https://mukhindev-praktikum.github.io/russian-travel/
+https://mukhindev-praktikum.github.io/mesto/
 
 ## Что это?
 
