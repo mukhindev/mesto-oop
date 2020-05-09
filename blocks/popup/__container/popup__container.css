@@ -1,0 +1,21 @@
+.popup__container {
+  padding: 36px;
+  margin: 19px;
+  max-width: 430px;
+  color: #000;
+  background-color: #FFF;
+  box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+  position: relative;
+  box-sizing: border-box;
+  animation: slide 0.5s;
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
+@keyframes slide {
+  0% {
+    opacity: 0;
+    transform: translate(0,24px);
+  }
+}

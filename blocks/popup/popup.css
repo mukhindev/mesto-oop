@@ -1,0 +1,27 @@
+@import './__container/popup__container.css';
+@import './__close-button/popup__close-button.css';
+@import './__title/popup__title.css';
+@import './__form/popup__form.css';
+@import './__input-name/popup__input-name.css';
+@import './__input-about/popup__input-about.css';
+@import './__save-button/popup__save-button.css';
+
+.popup {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.5);
+  animation: fade 1s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: none;
+}
+
+@keyframes fade {
+  0% {
+    background: rgba(0, 0, 0, 0);
+  }
+}
