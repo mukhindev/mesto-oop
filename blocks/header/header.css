@@ -1,0 +1,12 @@
+@import './__logo/header__logo.css';
+
+.header {
+  padding: 41px 0 45px;
+  border-bottom: 1px solid #545454;
+}
+
+@media (max-width: 425px) {
+  .header {
+    padding: 28px 32px 27px;
+  }
+}
