@@ -3,3 +3,5 @@
 @import '../blocks/root/root.css';
 @import '../blocks/page/page.css';
 @import '../blocks/header/header.css';
+@import '../blocks/main/main.css';
+@import '../blocks/profile/profile.css';

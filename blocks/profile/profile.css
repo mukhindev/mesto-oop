@@ -1,0 +1,19 @@
+@import './__avatar/profile__avatar.css';
+@import './__info/profile__info.css';
+@import './__name/profile__name.css';
+@import './__edit-button/profile__edit-button.css';
+@import './__about/profile__about.css';
+@import './__add-button/profile__add-button.css';
+
+.profile {
+  padding: 40px 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@media (max-width: 1024px) {
+  .profile {
+    flex-direction: column;
+  }
+}
