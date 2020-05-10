@@ -4,7 +4,15 @@
   font-weight: 400;
   font-size: 18px;
   line-height: 1.22;
+  grid-column: 1 / -1;
 }
+
+@media (max-width: 1024px) {
+  .profile__about {
+    justify-self: center;
+  }
+}
+
 
 @media (max-width: 768px) {
   .profile__about {

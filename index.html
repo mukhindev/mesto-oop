@@ -9,59 +9,61 @@
 <body class="root">
   <div class="page">
     <header class="header">
-      <div class="header__logo"></div>
+      <a class="header__link-home" href="#" title="На главную страницу">
+        <img class="header__logo" src="./images/header/__logo.svg" alt="Место">
+      </a>
     </header>
     <main class="main">
       <section class="profile">
-        <img class="profile__avatar" src="./images/profile/__avatar.jpg" alt="аватар Жак-Ив Кусто" />
+        <img class="profile__avatar" src="./images/profile/__avatar.jpg" alt="аватар Жак-Ив Кусто">
         <div class="profile__info">
           <h2 class="profile__name">Жак-Ив Кусто</h2>
-          <button class="profile__edit-button"></button>
+          <button type="button" class="profile__edit-button" title="Редактировать"></button>
           <p class="profile__about">Исследователь океана</p>
         </div>
-        <button class="profile__add-button"></button>
+        <button type="button" class="profile__add-button" title="Добавить"></button>
       </section>
       <section class="places" aria-label="Места">
         <article class="place">
           <img class="place__photo" src="./images/place/__elbrus.jpg" alt="фото Эльбруса">
           <div class="place__panel">
             <h3 class="place__name">Эльбрус</h3>
-            <div class="place__like"></div>
+            <button type="button" class="place__like" title="Мне нравится"></button>
           </div>
         </article>
         <article class="place">
           <img class="place__photo" src="./images/place/__kazan.jpg" alt="фото Казани">
           <div class="place__panel">
             <h3 class="place__name">Казань</h3>
-            <div class="place__like"></div>
+            <button type="button" class="place__like" title="Мне нравится"></button>
           </div>
         </article>
         <article class="place">
           <img class="place__photo" src="./images/place/__moscow.jpg" alt="фото Москвы">
           <div class="place__panel">
             <h3 class="place__name">Москва</h3>
-            <div class="place__like"></div>
+            <button type="button" class="place__like" title="Мне нравится"></button>
           </div>
         </article>
         <article class="place">
           <img class="place__photo" src="./images/place/__olkhon-island.jpg" alt="фото Ольхон">
           <div class="place__panel">
             <h3 class="place__name">Ольхон</h3>
-            <div class="place__like"></div>
+            <button type="button" class="place__like" title="Мне нравится"></button>
           </div>
         </article>
         <article class="place">
           <img class="place__photo" src="./images/place/__rosa-khutor.jpg" alt="фото Роза Хутор">
           <div class="place__panel">
             <h3 class="place__name">Роза Хутор</h3>
-            <div class="place__like"></div>
+            <button type="button" class="place__like" title="Мне нравится"></button>
           </div>
         </article>
         <article class="place">
           <img class="place__photo" src="./images/place/__saint-petersburg.jpg" alt="фото Санкт Петербурга">
           <div class="place__panel">
             <h3 class="place__name">Санкт Петербург</h3>
-            <div class="place__like"></div>
+            <button type="button" class="place__like" title="Мне нравится"></button>
           </div>
         </article>
       </section>
@@ -69,13 +71,25 @@
     <footer class="footer">
       <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
     </footer>
-    <div class="popup">
-      <div class="popup__container">
-        <button class="popup__close-button"></button>
+    <div class="popup animation-fade">
+      <div class="popup__container animation-slide">
+        <button type="button" class="popup__close-button"></button>
         <h3 class="popup__title">Редактировать профиль</h3>
-        <form class="popup__form">
-          <input class="popup__input-name input" type="text">
-          <input class="popup__input-about input" type="text">
+        <form class="popup__form" name="popupForm" action="#">
+          <input
+            class="popup__input popup__input_value_name"
+            name="popupInputName"
+            type="text"
+            placeholder="Имя"
+            required
+          >
+          <input
+            class="popup__input popup__input_value_about"
+            name="popupInputAbout"
+            type="text"
+            placeholder="О себе"
+            required
+          >
           <button type="submit" class="popup__save-button">Сохранить</button>
         </form>
       </div>

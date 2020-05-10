@@ -17,11 +17,6 @@
   cursor: pointer;
 }
 
-.profile__edit-button:focus {
-  outline: 2px solid rgba(0, 195, 255, 0.5);
-  outline-offset: 1px;
-}
-
 @media (max-width: 425px) {
   .profile__edit-button {
     margin: 0 0 0 8px;

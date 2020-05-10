@@ -8,10 +8,6 @@
   border-radius: 2px;
 }
 .popup__save-button:hover {
-  opacity: 0.8;
+  background: rgba(0, 0, 0, 0.8);
   cursor: pointer;
-}
-
-.popup__save-button:focus {
-  outline: 2px solid rgba(0, 195, 255, 0.5);
 }

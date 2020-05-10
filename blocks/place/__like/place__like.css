@@ -2,8 +2,16 @@
   width: 21px;
   height: 18px;
   margin-left: 12px;
+  flex-shrink: 0;
+  border: none;
+  background-color: rgba(0, 0, 0, 0);
   background-image: url('../../../images/place/__like_false.svg');
   background-repeat: no-repeat;
+  background-position: center;
   background-size: contain;
-  flex-shrink: 0;
+  transition: 0.25s;
+}
+
+.place__like:hover {
+  cursor: pointer;
 }
