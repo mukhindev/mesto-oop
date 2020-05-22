@@ -117,7 +117,6 @@ function openPhoto(evt) {
   popupLightbox.classList.add('popup_opened')
   lightboxPhoto.src = photoLink
   lightboxLabel.textContent = evt.target.nextElementSibling.textContent
-  console.log(evt)
 }
 
 // Функция: Поставить/Снять лайк
