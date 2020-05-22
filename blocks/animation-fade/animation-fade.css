@@ -1,9 +1,0 @@
-@keyframes fade {
-  0% {
-    background: rgba(0, 0, 0, 0);
-  }
-}
-
-.animation-fade {
-  animation: fade 1s;
-}

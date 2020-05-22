@@ -35,6 +35,7 @@ const userProfileButtonAddPlace = userProfile.querySelector('.profile__add-butto
 // Попапы
 const popupProfile = document.querySelector('.popup_profile')
 const popupPlace = document.querySelector('.popup_place')
+const popupLightbox = document.querySelector('.popup_lightbox')
 
 // Форма профиля
 const formProfile = popupProfile.querySelector('.popup__form')
@@ -48,67 +49,92 @@ const formInputPlaceName = formPlace.querySelector('.popup__input_value_place-na
 const formInputPlacePhoto = formPlace.querySelector('.popup__input_value_place-photo')
 const formButtonPlaceClose = popupPlace.querySelector('.popup__close-button')
 
-// Элементы мест
+// Lightbox
+const lightboxPhoto = popupLightbox.querySelector('.popup__lightbox-photo')
+const lightboxLabel = popupLightbox.querySelector('.popup__lightbox-label')
+const lightboxButtonClose = popupLightbox.querySelector('.popup__close-button')
+
+// Сетка карточек мест
 const places = document.querySelector('.places')
 
 // Шаблон #place
 const templatePlaceCard = document.querySelector('#place').content
 
+// Добавление карточки места в .places
+function addPlaceCard(name, link) {
+  const placeCard = templatePlaceCard.cloneNode(true)
+  const placeName = placeCard.querySelector('.place__name')
+  const placeImage = placeCard.querySelector('.place__photo')
+  placeName.textContent = name
+  placeImage.style.backgroundImage = `url("${link}")`
+  places.prepend(placeCard)
+}
+
 // Вывод карточек мест
 initialPlaces.forEach(place => {
-  const placeCard = templatePlaceCard.cloneNode(true)
-  const placeImage = placeCard.querySelector('.place__photo')
-  const placeName = placeCard.querySelector('.place__name')
-  placeImage.style.backgroundImage = `url("${place.link}")`
-  placeName.textContent = place.name
-  places.append(placeCard)
+  addPlaceCard(place.name, place.link)
 })
 
-// Фукнция: открывает всплавающее окно и заносит в форму текщие данные
+// Функция: открывает всплавающее окно и заносит в форму текщие данные
 function showPopup() {
   formInputProfileName.value = userProfileName.textContent
   formInputProfileAbout.value = userProfileAbout.textContent
   popupProfile.classList.add('popup_opened')
 }
 
-// Фукнция: открывает всплавающее окно и заносит в форму текщие данные
+// Функция: открывает всплавающее окно и заносит в форму текщие данные
 function showPopupPlace() {
   formInputPlaceName.value = ''
   formInputPlacePhoto.value = ''
   popupPlace.classList.add('popup_opened')
 }
 
-// Фукнция: закрывает всплавающее окно
+// Функция: Закрыть всплывающее окно
 function closePopup() {
   popupProfile.classList.remove('popup_opened')
   popupPlace.classList.remove('popup_opened')
+  popupLightbox.classList.remove('popup_opened')
 }
 
-// Функция: применяет изнения профиля
-function applyСhanges(evt) {
+// Функция: Применить изменения профиля
+function applyСhangesProfile(evt) {
   evt.preventDefault()
   userProfileName.textContent = formInputProfileName.value
   userProfileAbout.textContent = formInputProfileAbout.value
   closePopup()
 }
 
+// Функция: Приминить создание карточки
+function createPlaceCard(evt) {
+  evt.preventDefault()
+  addPlaceCard(formInputPlaceName.value, formInputPlacePhoto.value) 
+  closePopup()
+}
+
 // Функция: Отобразить фото
 function openPhoto(evt) {
-  const photoLink = evt.target.src
-  console.log(photoLink)
+  const photoLink = evt.target.style.backgroundImage.replace(/^url[(]"|"[)]$/g, '')
+  popupLightbox.classList.add('popup_opened')
+  lightboxPhoto.src = photoLink
+  lightboxLabel.textContent = evt.target.nextElementSibling.textContent
+  console.log(evt)
 }
 
 // Функция: Поставить/Снять лайк
 function toggleLike(evt) {
-  const placeName = evt.target.previousElementSibling.textContent
-  const placeId = initialPlaces.findIndex(place => place.name === placeName)
-  console.log(placeId)
+  evt.target.classList.toggle('place__like_active')
 }
 
-// Функция: Отслеживание кликов по изображению и лайку
+// Функция: Удалить место
+function deletePlace(evt) {
+  evt.target.closest('.place').remove()
+}
+
+// Функция: Отслеживание кликов по фото, лайку и кнопке удалить на карточках
 function listenPlaceСard(evt) {
   if (evt.target.classList.contains("place__photo")) openPhoto(evt)
   if (evt.target.classList.contains("place__like")) toggleLike(evt)
+  if (evt.target.classList.contains("place__delete-button")) deletePlace(evt)
 }
 
 // Слушатели
@@ -116,5 +142,7 @@ userProfileButtonEdit.addEventListener('click', showPopup)
 userProfileButtonAddPlace.addEventListener('click', showPopupPlace)
 formButtonProfileClose.addEventListener('click', closePopup)
 formButtonPlaceClose.addEventListener('click', closePopup)
-formProfile.addEventListener('submit', applyСhanges)
+lightboxButtonClose.addEventListener('click', closePopup)
+formProfile.addEventListener('submit', applyСhangesProfile)
+formPlace.addEventListener('submit', createPlaceCard)
 places.addEventListener('click', listenPlaceСard)

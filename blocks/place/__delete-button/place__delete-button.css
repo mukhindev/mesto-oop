@@ -1,11 +1,12 @@
-.place__like {
-  width: 21px;
+.place__delete-button {
+  position: absolute;
+  top: 18px;
+  right: 15px;
+  width: 20px;
   height: 18px;
-  margin-left: 12px;
-  flex-shrink: 0;
   border: none;
   background-color: transparent;
-  background-image: url('../../../images/place/__like_false.svg');
+  background-image: url('../../../images/place/__trash.svg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
@@ -13,6 +14,6 @@
   cursor: pointer;
 }
 
-.place__like:hover {
+.place__delete-button:hover {
   opacity: 0.6;
 }

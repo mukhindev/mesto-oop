@@ -28,8 +28,8 @@
     <footer class="footer">
       <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
     </footer>
-    <div class="popup popup_profile animation-fade">
-      <div class="popup__container animation-slide">
+    <div class="popup popup_profile">
+      <div class="popup__container">
         <button type="button" class="popup__close-button"></button>
         <h3 class="popup__title">Редактировать профиль</h3>
         <form class="popup__form" name="popupProfileForm" action="#">
@@ -51,8 +51,8 @@
         </form>
       </div>
     </div>
-    <div class="popup popup_place animation-fade">
-      <div class="popup__container animation-slide">
+    <div class="popup popup_place">
+      <div class="popup__container">
         <button type="button" class="popup__close-button"></button>
         <h3 class="popup__title">Новое место</h3>
         <form class="popup__form" name="popupPlaceForm" action="#">
@@ -74,6 +74,13 @@
         </form>
       </div>
     </div>
+    <div class="popup popup_opacity_low popup_lightbox">
+      <div class="popup__lightbox-wrapper">
+        <button type="button" class="popup__close-button"></button>
+        <img class="popup__lightbox-photo">
+        <p class="popup__lightbox-label"></p>
+      </div>
+    </div>
   </div>
   <template id="place">
     <article class="place">
@@ -81,6 +88,7 @@
       <div class="place__panel">
         <h3 class="place__name"></h3>
         <button type="button" class="place__like" title="Мне нравится"></button>
+        <button type="submit" class="place__delete-button" title="Удалить"></button>
       </div>
     </article>
   </template>
