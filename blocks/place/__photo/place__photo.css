@@ -1,7 +1,9 @@
 .place__photo {
   width: 100%;
-  display: block;
-  background-color: #FFF;
+  padding-bottom: 100%;
   border-radius: 10px 10px 0 0;
+  background-color: rgb(255, 255, 255);
+  background-size: cover;
+  cursor: pointer;
 }
 
