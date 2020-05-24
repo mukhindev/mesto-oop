@@ -88,13 +88,8 @@ function showPopup(popup) {
 
 // Функция: Закрыть всплывающее окно
 function closePopup(popup) {
-  let target
-  if (popup.target) {
-    target = popup.target.closest('.popup_opened')
-  } else {
-    target = popup
-  }
-  target.classList.remove('popup_opened')
+  if (popup.target) popup = popup.target.closest('.popup_opened')
+  popup.classList.remove('popup_opened')
 }
 
 // Функция: открывает всплавающее окно и заносит в форму текщие данные
@@ -149,7 +144,7 @@ function deletePlace(evt) {
   evt.target.closest('.place').remove()
 }
 
-// Функция: Отслеживание кликов по фото, лайку и кнопке удалить на карточках
+// Функция: Отслеживание кликов на карточках
 function listenPlaceСard(evt) {
   if (evt.target.classList.contains("place__photo")) openPhoto(evt)
   if (evt.target.classList.contains("place__like")) toggleLike(evt)
