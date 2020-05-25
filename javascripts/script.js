@@ -63,7 +63,7 @@ function createPlaceCard({ name, link }) {
   const placeCard = templatePlaceCard.cloneNode(true)
   const placeName = placeCard.querySelector('.place__name')
   const placeImage = placeCard.querySelector('.place__photo')
-  placeImage.style.backgroundImage = `url("${link}")`
+  placeImage.style.backgroundImage = `url('${link}')`
   placeName.textContent = name
   placeImage.dataset.name = name
   placeImage.dataset.link = link
@@ -77,9 +77,11 @@ function addPlaceCardInPlaces({ name, link }) {
 }
 
 // Функция: Вывод карточек мест
-initialPlaces.forEach(place => {
-  addPlaceCardInPlaces(place)
-})
+function initRender() {
+  initialPlaces.forEach(place => {
+    addPlaceCardInPlaces(place)
+  })
+}
 
 // Функция: Показать попап
 function showPopup(popup) {
@@ -128,9 +130,9 @@ function addPlaceCard(evt) {
 
 // Функция: Отобразить фото
 function openPhoto(evt) {
-  const photoLink = evt.target.dataset.link
-  lightboxPhoto.src = photoLink
-  lightboxLabel.textContent = evt.target.dataset.name
+  const { name, link } = evt.target.dataset;
+  lightboxPhoto.src = link
+  lightboxLabel.textContent = name
   showPopup(popupLightbox)
 }
 
@@ -146,9 +148,9 @@ function deletePlace(evt) {
 
 // Функция: Отслеживание кликов на карточках
 function listenPlaceСard(evt) {
-  if (evt.target.classList.contains("place__photo")) openPhoto(evt)
-  if (evt.target.classList.contains("place__like")) toggleLike(evt)
-  if (evt.target.classList.contains("place__delete-button")) deletePlace(evt)
+  if (evt.target.classList.contains('place__photo')) openPhoto(evt)
+  if (evt.target.classList.contains('place__like')) toggleLike(evt)
+  if (evt.target.classList.contains('place__delete-button')) deletePlace(evt)
 }
 
 // Слушатели
@@ -158,3 +160,6 @@ popupButtonsClose.forEach(button => button.addEventListener('click', closePopup)
 formProfile.addEventListener('submit', applyСhangesProfile)
 formPlace.addEventListener('submit', addPlaceCard)
 places.addEventListener('click', listenPlaceСard)
+
+// Инициализация
+initRender()
