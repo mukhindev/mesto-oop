@@ -88,8 +88,25 @@ function initRender() {
   })
 }
 
+// Функция: Закрыть попап по клику на оверлее
+function closePopupByClickOverlay(evt) {
+  if (evt.target.classList.contains('popup')) {
+    closePopup(evt.target)
+  }
+}
+
+// Функция: Закрывать попап по клавише Esc
+function closePopupByEsc(evt) {
+  if (evt.key === 'Escape') {
+    const openedPopup = document.querySelector('.popup_opened')
+    closePopup(openedPopup)
+  }
+}
+
 // Функция: Показать попап
 function showPopup(popup) {
+  document.addEventListener('keydown', closePopupByEsc)
+  popup.addEventListener('click', closePopupByClickOverlay)
   popup.classList.add('popup_opened')
 }
 
@@ -98,6 +115,8 @@ function closePopup(popup) {
   if (popup.target) popup = popup.target.closest('.popup')
   if (!popup.classList.contains('popup_opened')) return
   popup.classList.remove('popup_opened')
+  popup.removeEventListener('click', closePopupByClickOverlay)
+  document.removeEventListener('keydown', closePopupByEsc)
 }
 
 // Функция: открывает всплавающее окно и заносит в форму текщие данные
