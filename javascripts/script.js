@@ -63,10 +63,15 @@ function createPlaceCard({ name, link }) {
   const placeCard = templatePlaceCard.cloneNode(true)
   const placeName = placeCard.querySelector('.place__name')
   const placeImage = placeCard.querySelector('.place__photo')
+  const placeDeleteButton = placeCard.querySelector('.place__delete-button')
+  const placeLikeButton = placeCard.querySelector('.place__like')
   placeImage.style.backgroundImage = `url('${link}')`
   placeName.textContent = name
   placeImage.dataset.name = name
   placeImage.dataset.link = link
+  placeImage.addEventListener('click', openPhoto)
+  placeLikeButton.addEventListener('click', toggleLike)
+  placeDeleteButton.addEventListener('click', deletePlace)
   return placeCard
 }
 
@@ -90,7 +95,8 @@ function showPopup(popup) {
 
 // Функция: Закрыть всплывающее окно
 function closePopup(popup) {
-  if (popup.target) popup = popup.target.closest('.popup_opened')
+  if (popup.target) popup = popup.target.closest('.popup')
+  if (!popup.classList.contains('popup_opened')) return
   popup.classList.remove('popup_opened')
 }
 
@@ -143,14 +149,14 @@ function toggleLike(evt) {
 
 // Функция: Удалить место
 function deletePlace(evt) {
-  evt.target.closest('.place').remove()
-}
-
-// Функция: Отслеживание кликов на карточках
-function listenPlaceСard(evt) {
-  if (evt.target.classList.contains('place__photo')) openPhoto(evt)
-  if (evt.target.classList.contains('place__like')) toggleLike(evt)
-  if (evt.target.classList.contains('place__delete-button')) deletePlace(evt)
+  // Элемент всей карточки
+  const placeCard = evt.target.closest('.place')
+  // Удаление слушателей с элементов карточки
+  placeCard.querySelector('.place__photo').removeEventListener('click', openPhoto)
+  placeCard.querySelector('.place__like').removeEventListener('click', toggleLike)
+  placeCard.querySelector('.place__delete-button').removeEventListener('click', deletePlace)
+  // Удаление карточки
+  placeCard.remove()
 }
 
 // Слушатели
@@ -159,7 +165,6 @@ userProfileButtonAddPlace.addEventListener('click', showPopupPlace)
 popupButtonsClose.forEach(button => button.addEventListener('click', closePopup))
 formProfile.addEventListener('submit', applyСhangesProfile)
 formPlace.addEventListener('submit', addPlaceCard)
-places.addEventListener('click', listenPlaceСard)
 
 // Инициализация
 initRender()
