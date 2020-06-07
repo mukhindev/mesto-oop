@@ -34,19 +34,30 @@
         <h3 class="popup__title">Редактировать профиль</h3>
         <form class="popup__form" name="popupProfileForm" action="#">
           <input
+            id="profile-name"
             class="popup__input popup__input_value_profile-name"
             name="popupInputProfileName"
             type="text"
             placeholder="Имя"
             required
+            minlength="2"
+            maxlength="40"
+            pattern="[А-ЯЁа-яёA-Za-z-\s]+"
+            autocomplete="off"
           >
+          <span id="profile-name-error" class="popup__error"></span>
           <input
+            id="profile-about"
             class="popup__input popup__input_value_profile-about"
             name="popupInputProfileAbout"
             type="text"
             placeholder="О себе"
             required
+            minlength="2"
+            maxlength="200"
+            autocomplete="off"
           >
+          <span id="profile-about-error" class="popup__error"></span>
           <button type="submit" class="popup__save-button">Сохранить</button>
         </form>
       </div>
@@ -57,19 +68,27 @@
         <h3 class="popup__title">Новое место</h3>
         <form class="popup__form" name="popupPlaceForm" action="#">
           <input
+            id="place-name"
             class="popup__input popup__input_value_place-name"
             name="popupInputPlaceName"
             type="text"
             placeholder="Название"
             required
+            minlength="1"
+            maxlength="30"
+            autocomplete="off"
           >
+          <span id="place-name-error" class="popup__error"></span>
           <input
+            id="place-photo"
             class="popup__input popup__input_value_place-photo"
             name="popupInputPlacePhoto"
-            type="text"
+            type="url"
             placeholder="Ссылка на картинку"
             required
+            autocomplete="off"
           >
+          <span id="place-photo-error" class="popup__error"></span>
           <button type="submit" class="popup__save-button">Создать</button>
         </form>
       </div>
@@ -93,5 +112,6 @@
     </article>
   </template>
   <script src="./javascripts/script.js"></script>
+  <script src="./javascripts/validate.js"></script>
 </body>
 </html>

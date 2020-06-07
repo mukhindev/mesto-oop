@@ -81,6 +81,12 @@ function addPlaceCardInPlaces({ name, link }) {
   places.prepend(card)
 }
 
+// Функция: Установка данных
+function setStateFormProfile() {
+  formInputProfileName.value = userProfileName.textContent
+  formInputProfileAbout.value = userProfileAbout.textContent
+}
+
 // Функция: Вывод карточек мест
 function initRender() {
   initialPlaces.forEach(place => {
@@ -106,7 +112,7 @@ function closePopupByEsc(evt) {
 // Функция: Показать попап
 function showPopup(popup) {
   document.addEventListener('keydown', closePopupByEsc)
-  popup.addEventListener('click', closePopupByClickOverlay)
+  popup.addEventListener('mousedown', closePopupByClickOverlay)
   popup.classList.add('popup_opened')
 }
 
@@ -115,7 +121,7 @@ function closePopup(popup) {
   if (popup.target) popup = popup.target.closest('.popup')
   if (!popup.classList.contains('popup_opened')) return
   popup.classList.remove('popup_opened')
-  popup.removeEventListener('click', closePopupByClickOverlay)
+  popup.removeEventListener('mousedown', closePopupByClickOverlay)
   document.removeEventListener('keydown', closePopupByEsc)
 }
 
@@ -186,4 +192,5 @@ formProfile.addEventListener('submit', applyСhangesProfile)
 formPlace.addEventListener('submit', addPlaceCard)
 
 // Инициализация
+setStateFormProfile()
 initRender()
