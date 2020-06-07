@@ -82,7 +82,7 @@ function addPlaceCardInPlaces({ name, link }) {
 }
 
 // Функция: Установка данных
-function setStateForProfile() {
+function setStateProfile() {
   formInputProfileName.value = userProfileName.textContent
   formInputProfileAbout.value = userProfileAbout.textContent
 }
@@ -123,12 +123,13 @@ function closePopup(popup) {
   popup.classList.remove('popup_opened')
   popup.removeEventListener('mousedown', closePopupByClickOverlay)
   document.removeEventListener('keydown', closePopupByEsc)
+  const form = popup.querySelector('.popup__form')
+  form.reset()
+  setStateProfile()
 }
 
-// Функция: открывает всплавающее окно и заносит в форму текщие данные
+// Функция: открывает всплавающее окно
 function showPopupProfile() {
-  formInputProfileName.value = userProfileName.textContent
-  formInputProfileAbout.value = userProfileAbout.textContent
   showPopup(popupProfile)
 }
 
@@ -192,5 +193,5 @@ formProfile.addEventListener('submit', applyСhangesProfile)
 formPlace.addEventListener('submit', addPlaceCard)
 
 // Инициализация
-setStateForProfile()
+setStateProfile()
 initRender()

@@ -1,12 +1,34 @@
+const enableSubmitButton = (buttonElement, options) => {
+  buttonElement.disabled = false
+  buttonElement.classList.remove(options.inactiveButtonClass)
+}
+
+const disableSubmitButton = (buttonElement, options) => {
+  buttonElement.disabled = true
+  buttonElement.classList.add(options.inactiveButtonClass)
+}
+
+const checkValidityForm = (form, options) => {
+  const buttonElement = form.querySelector(options.submitButtonSelector)
+  if (form.checkValidity()) enableSubmitButton(buttonElement, options)
+  else disableSubmitButton(buttonElement, options)
+}
+
+const getErrorSpan = (input) => {
+  return document.querySelector(`#${input.id}-error`)
+}
+
 const showInputError = (input, options) => {
-  const error = document.querySelector(`#${input.id}-error`)
+  const error = getErrorSpan(input)
   error.textContent = input.validationMessage
+  error.classList.add(options.errorClass)
   input.classList.add(options.inputErrorClass)
 }
 
 const hideInputError = (input, options) => {
-  const error = document.querySelector(`#${input.id}-error`)
+  const error = getErrorSpan(input)
   error.textContent = ''
+  error.classList.remove(options.errorClass)
   input.classList.remove(options.inputErrorClass)
 }
 
@@ -16,16 +38,6 @@ const handleInput = (e, options) => {
   else showInputError(input, options)
 }
 
-const handleButton = (e, formElement, options) => {
-  const buttonElement = formElement.querySelector(options.submitButtonSelector)
-  formElement.addEventListener('input', () => {
-    const isValid = formElement.checkValidity()
-    buttonElement.disabled = !isValid
-    if (isValid) buttonElement.classList.remove(options.inactiveButtonClass)
-    else buttonElement.classList.add(options.inactiveButtonClass)
-  })
-}
-
 const enableValidation = (options) => {
   const formElements = Array.from(document.querySelectorAll(options.formSelector))
   formElements.forEach((formElement) => {
@@ -33,16 +45,19 @@ const enableValidation = (options) => {
     inputElements.forEach((input) => {
       input.addEventListener('input', (e) => {
         handleInput(e, options)
-        handleButton(e, formElement, options)
+        checkValidityForm(formElement, options)
       })
     })
     formElement.closest(`.${options.popupClass}`).addEventListener('transitionend', function (evt) {
       if (evt.target.classList.contains(options.popupClass) && evt.propertyName === 'visibility') {
         inputElements.forEach(input => {
           hideInputError(input, options)
+          checkValidityForm(formElement, options)
         })
       }
     })
+    // Первичная проверка
+    checkValidityForm(formElement, options)
   })
 }
 
