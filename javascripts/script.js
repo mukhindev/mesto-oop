@@ -58,6 +58,9 @@ const places = document.querySelector('.places')
 // Шаблон #place
 const templatePlaceCard = document.querySelector('#place').content
 
+// Объявление пользовательского события
+const eventShowForm = new Event('showForm', { bubbles: false })
+
 // Функция: Формирование карточки
 function createPlaceCard({ name, link }) {
   const placeCard = templatePlaceCard.cloneNode(true)
@@ -114,6 +117,10 @@ function showPopup(popup) {
   document.addEventListener('keydown', closePopupByEsc)
   popup.addEventListener('mousedown', closePopupByClickOverlay)
   popup.classList.add('popup_opened')
+  // Если в попапе есть форма, на ней вызывается пользовательское событие "showForm"
+  if (popup.querySelector('.popup__form')) {
+    popup.querySelector('.popup__form').dispatchEvent(eventShowForm)
+  }
 }
 
 // Функция: Закрыть всплывающее окно
@@ -123,13 +130,12 @@ function closePopup(popup) {
   popup.classList.remove('popup_opened')
   popup.removeEventListener('mousedown', closePopupByClickOverlay)
   document.removeEventListener('keydown', closePopupByEsc)
-  const form = popup.querySelector('.popup__form')
-  form.reset()
-  setStateProfile()
 }
 
 // Функция: открывает всплавающее окно
 function showPopupProfile() {
+  formInputProfileName.value = userProfileName.textContent
+  formInputProfileAbout.value = userProfileAbout.textContent
   showPopup(popupProfile)
 }
 
@@ -193,5 +199,14 @@ formProfile.addEventListener('submit', applyСhangesProfile)
 formPlace.addEventListener('submit', addPlaceCard)
 
 // Инициализация
-setStateProfile()
 initRender()
+
+enableValidation({
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__save-button',
+  inactiveButtonClass: 'popup__save-button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_visible',
+  popupClass: 'popup',
+})
