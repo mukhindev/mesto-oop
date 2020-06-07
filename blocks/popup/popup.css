@@ -7,6 +7,7 @@
 @import './__input/_value/popup__input_value_profile-about.css';
 @import './__input/_value/popup__input_value_place-name.css';
 @import './__input/_value/popup__input_value_place-photo.css';
+@import './__input/_type/popup__input_type_error.css';
 @import './__save-button/popup__save-button.css';
 @import './__save-button/_disabled/popup__save-button_disabled.css';
 @import './__lightbox-wrapper/popup__lightbox-wrapper.css';

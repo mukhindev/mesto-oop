@@ -82,7 +82,7 @@ function addPlaceCardInPlaces({ name, link }) {
 }
 
 // Функция: Установка данных
-function setStateFormProfile() {
+function setStateForProfile() {
   formInputProfileName.value = userProfileName.textContent
   formInputProfileAbout.value = userProfileAbout.textContent
 }
@@ -95,15 +95,15 @@ function initRender() {
 }
 
 // Функция: Закрыть попап по клику на оверлее
-function closePopupByClickOverlay(evt) {
-  if (evt.target.classList.contains('popup')) {
-    closePopup(evt.target)
+function closePopupByClickOverlay(e) {
+  if (e.target.classList.contains('popup')) {
+    closePopup(e.target)
   }
 }
 
 // Функция: Закрывать попап по клавише Esc
-function closePopupByEsc(evt) {
-  if (evt.key === 'Escape') {
+function closePopupByEsc(e) {
+  if (e.key === 'Escape') {
     const openedPopup = document.querySelector('.popup_opened')
     closePopup(openedPopup)
   }
@@ -140,16 +140,16 @@ function showPopupPlace() {
 }
 
 // Функция: Применить изменения профиля
-function applyСhangesProfile(evt) {
-  evt.preventDefault()
+function applyСhangesProfile(e) {
+  e.preventDefault()
   userProfileName.textContent = formInputProfileName.value
   userProfileAbout.textContent = formInputProfileAbout.value
   closePopup(popupProfile)
 }
 
 // Функция: Создание новой карточки
-function addPlaceCard(evt) {
-  evt.preventDefault()
+function addPlaceCard(e) {
+  e.preventDefault()
   const place = {
     name: formInputPlaceName.value,
     link: formInputPlacePhoto.value
@@ -160,22 +160,22 @@ function addPlaceCard(evt) {
 }
 
 // Функция: Отобразить фото
-function openPhoto(evt) {
-  const { name, link } = evt.target.dataset;
+function openPhoto(e) {
+  const { name, link } = e.target.dataset;
   lightboxPhoto.src = link
   lightboxLabel.textContent = name
   showPopup(popupLightbox)
 }
 
 // Функция: Поставить/Снять лайк
-function toggleLike(evt) {
-  evt.target.classList.toggle('place__like_active')
+function toggleLike(e) {
+  e.target.classList.toggle('place__like_active')
 }
 
 // Функция: Удалить место
-function deletePlace(evt) {
+function deletePlace(e) {
   // Элемент всей карточки
-  const placeCard = evt.target.closest('.place')
+  const placeCard = e.target.closest('.place')
   // Удаление слушателей с элементов карточки
   placeCard.querySelector('.place__photo').removeEventListener('click', openPhoto)
   placeCard.querySelector('.place__like').removeEventListener('click', toggleLike)
@@ -192,5 +192,5 @@ formProfile.addEventListener('submit', applyСhangesProfile)
 formPlace.addEventListener('submit', addPlaceCard)
 
 // Инициализация
-setStateFormProfile()
+setStateForProfile()
 initRender()
