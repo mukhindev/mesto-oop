@@ -111,7 +111,7 @@ function showPopup (popup) {
   document.addEventListener('keydown', closePopupByEsc)
   popup.addEventListener('mousedown', closePopupByClickOverlay)
   popup.classList.add('popup_opened')
-  // Если в попапе есть форма, на ней вызывается пользовательское событие "showForm"
+  // Если в попапе есть форма, на ней вызывается событие "showForm"
   if (popup.querySelector('.popup__form')) {
     popup.querySelector('.popup__form').dispatchEvent(eventShowForm)
   }
@@ -194,12 +194,3 @@ formPlace.addEventListener('submit', addPlaceCard)
 
 // Инициализация
 initRender()
-
-enableValidation({
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__save-button',
-  inactiveButtonClass: 'popup__save-button_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__error_visible'
-})

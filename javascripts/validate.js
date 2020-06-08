@@ -61,7 +61,7 @@ const enableValidation = (options) => {
         checkValidityForm(formElement, options)
       })
     })
-    // На формы вешается пользовательский слушатель, ожидающий событие при открытии формы
+    // На формы вешается слушатель, ожидающий событие "showForm"
     formElement.addEventListener('showForm', (e) => {
       inputElements.forEach(input => {
         // Сбрасываются ошибки полей
@@ -72,3 +72,12 @@ const enableValidation = (options) => {
     })
   })
 }
+
+enableValidation({
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__save-button',
+  inactiveButtonClass: 'popup__save-button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_visible'
+})
