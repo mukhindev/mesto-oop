@@ -45,7 +45,7 @@ const handleInput = (e, options) => {
   else showInputError(input, options)
 }
 
-// Функция: Подключение валидации 
+// Функция: Подключение валидации
 const enableValidation = (options) => {
   // Поиск соответствующих форм
   const formElements = Array.from(document.querySelectorAll(options.formSelector))
@@ -61,7 +61,7 @@ const enableValidation = (options) => {
         checkValidityForm(formElement, options)
       })
     })
-    // На формы вешается пользовательский слушатель, ожидающий событие при открытии формы 
+    // На формы вешается пользовательский слушатель, ожидающий событие при открытии формы
     formElement.addEventListener('showForm', (e) => {
       inputElements.forEach(input => {
         // Сбрасываются ошибки полей

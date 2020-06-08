@@ -23,7 +23,7 @@ const initialPlaces = [
     name: 'Байкал',
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   }
-];
+]
 
 // Элементы профиля
 const userProfile = document.querySelector('.profile')
@@ -62,7 +62,7 @@ const templatePlaceCard = document.querySelector('#place').content
 const eventShowForm = new Event('showForm', { bubbles: false })
 
 // Функция: Формирование карточки
-function createPlaceCard({ name, link }) {
+function createPlaceCard ({ name, link }) {
   const placeCard = templatePlaceCard.cloneNode(true)
   const placeName = placeCard.querySelector('.place__name')
   const placeImage = placeCard.querySelector('.place__photo')
@@ -79,33 +79,27 @@ function createPlaceCard({ name, link }) {
 }
 
 // Функция: Добавление карточки в .places
-function addPlaceCardInPlaces({ name, link }) {
+function addPlaceCardInPlaces ({ name, link }) {
   const card = createPlaceCard({ name, link })
   places.prepend(card)
 }
 
-// Функция: Установка данных
-function setStateProfile() {
-  formInputProfileName.value = userProfileName.textContent
-  formInputProfileAbout.value = userProfileAbout.textContent
-}
-
 // Функция: Вывод карточек мест
-function initRender() {
+function initRender () {
   initialPlaces.forEach(place => {
     addPlaceCardInPlaces(place)
   })
 }
 
 // Функция: Закрыть попап по клику на оверлее
-function closePopupByClickOverlay(e) {
+function closePopupByClickOverlay (e) {
   if (e.target.classList.contains('popup')) {
     closePopup(e.target)
   }
 }
 
 // Функция: Закрывать попап по клавише Esc
-function closePopupByEsc(e) {
+function closePopupByEsc (e) {
   if (e.key === 'Escape') {
     const openedPopup = document.querySelector('.popup_opened')
     closePopup(openedPopup)
@@ -113,7 +107,7 @@ function closePopupByEsc(e) {
 }
 
 // Функция: Показать попап
-function showPopup(popup) {
+function showPopup (popup) {
   document.addEventListener('keydown', closePopupByEsc)
   popup.addEventListener('mousedown', closePopupByClickOverlay)
   popup.classList.add('popup_opened')
@@ -124,7 +118,7 @@ function showPopup(popup) {
 }
 
 // Функция: Закрыть всплывающее окно
-function closePopup(popup) {
+function closePopup (popup) {
   if (popup.target) popup = popup.target.closest('.popup')
   if (!popup.classList.contains('popup_opened')) return
   popup.classList.remove('popup_opened')
@@ -133,21 +127,21 @@ function closePopup(popup) {
 }
 
 // Функция: открывает всплавающее окно
-function showPopupProfile() {
+function showPopupProfile () {
   formInputProfileName.value = userProfileName.textContent
   formInputProfileAbout.value = userProfileAbout.textContent
   showPopup(popupProfile)
 }
 
 // Функция: открывает всплавающее окно и заносит в форму текщие данные
-function showPopupPlace() {
+function showPopupPlace () {
   formInputPlaceName.value = ''
   formInputPlacePhoto.value = ''
   showPopup(popupPlace)
 }
 
 // Функция: Применить изменения профиля
-function applyСhangesProfile(e) {
+function applyСhangesProfile (e) {
   e.preventDefault()
   userProfileName.textContent = formInputProfileName.value
   userProfileAbout.textContent = formInputProfileAbout.value
@@ -155,7 +149,7 @@ function applyСhangesProfile(e) {
 }
 
 // Функция: Создание новой карточки
-function addPlaceCard(e) {
+function addPlaceCard (e) {
   e.preventDefault()
   const place = {
     name: formInputPlaceName.value,
@@ -167,20 +161,20 @@ function addPlaceCard(e) {
 }
 
 // Функция: Отобразить фото
-function openPhoto(e) {
-  const { name, link } = e.target.dataset;
+function openPhoto (e) {
+  const { name, link } = e.target.dataset
   lightboxPhoto.src = link
   lightboxLabel.textContent = name
   showPopup(popupLightbox)
 }
 
 // Функция: Поставить/Снять лайк
-function toggleLike(e) {
+function toggleLike (e) {
   e.target.classList.toggle('place__like_active')
 }
 
 // Функция: Удалить место
-function deletePlace(e) {
+function deletePlace (e) {
   // Элемент всей карточки
   const placeCard = e.target.closest('.place')
   // Удаление слушателей с элементов карточки
@@ -207,6 +201,5 @@ enableValidation({
   submitButtonSelector: '.popup__save-button',
   inactiveButtonClass: 'popup__save-button_disabled',
   inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__error_visible',
-  popupClass: 'popup',
+  errorClass: 'popup__error_visible'
 })
