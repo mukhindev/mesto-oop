@@ -1,29 +1,4 @@
-const initialPlaces = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-]
+/* initialPlaces объявлен в places.js */
 
 // Элементы профиля
 const userProfile = document.querySelector('.profile')
@@ -68,8 +43,9 @@ function createPlaceCard ({ name, link }) {
   const placeImage = placeCard.querySelector('.place__photo')
   const placeDeleteButton = placeCard.querySelector('.place__delete-button')
   const placeLikeButton = placeCard.querySelector('.place__like')
-  placeImage.style.backgroundImage = `url('${link}')`
   placeName.textContent = name
+  placeImage.alt = `Фотография места ${name}`
+  placeImage.src = link
   placeImage.dataset.name = name
   placeImage.dataset.link = link
   placeImage.addEventListener('click', openPhoto)
@@ -78,10 +54,15 @@ function createPlaceCard ({ name, link }) {
   return placeCard
 }
 
-// Функция: Добавление карточки в .places
+// Функция: Добавление карточки в DOM
+function addToDom ({ card, target }) {
+  target.prepend(card)
+}
+
+// Функция: Получение элемента c новой карточкой
 function addPlaceCardInPlaces ({ name, link }) {
   const card = createPlaceCard({ name, link })
-  places.prepend(card)
+  addToDom({ card, target: places })
 }
 
 // Функция: Вывод карточек мест
@@ -164,6 +145,7 @@ function addPlaceCard (e) {
 function openPhoto (e) {
   const { name, link } = e.target.dataset
   lightboxPhoto.src = link
+  lightboxPhoto.alt = name
   lightboxLabel.textContent = name
   showPopup(popupLightbox)
 }

@@ -39,8 +39,7 @@ const hideInputError = (input, options) => {
 }
 
 // Функция: Обрабатывать ввод в поле
-const handleInput = (e, options) => {
-  const input = e.target
+const handleInput = (input, options) => {
   if (input.checkValidity()) hideInputError(input, options)
   else showInputError(input, options)
 }
@@ -54,9 +53,9 @@ const enableValidation = (options) => {
     const inputElements = Array.from(formElement.querySelectorAll(options.inputSelector))
     inputElements.forEach((input) => {
       // На каждое поле вешается слушатель
-      input.addEventListener('input', (e) => {
+      input.addEventListener('input', () => {
         // Вызывается обработчик поля
-        handleInput(e, options)
+        handleInput(input, options)
         // Проверка состояния валидации соответствующей формы
         checkValidityForm(formElement, options)
       })

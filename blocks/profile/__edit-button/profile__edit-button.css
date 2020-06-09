@@ -10,11 +10,16 @@
   background-size: 10px 10px;
   transition: 0.25s;
   vertical-align: text-bottom;
+  flex-shrink: 0;
 }
 
 .profile__edit-button:hover {
   opacity: 0.6;
   cursor: pointer;
+}
+
+.profile__edit-button:active {
+  outline: none;
 }
 
 @media (max-width: 425px) {

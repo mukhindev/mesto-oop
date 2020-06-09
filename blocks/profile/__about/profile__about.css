@@ -5,11 +5,14 @@
   font-size: 18px;
   line-height: 1.22;
   grid-column: 1 / -1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 @media (max-width: 1024px) {
   .profile__about {
-    justify-self: center;
+    text-align: center;
   }
 }
 

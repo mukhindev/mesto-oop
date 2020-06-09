@@ -3,11 +3,13 @@
   grid-template-columns: minmax(0px, min-content) minmax(0px, min-content);
   align-items: center;
   width: 100%;
+  padding-right: 16px;
 }
 
 @media (max-width: 1024px) {
   .profile__info {
     width: auto;
     margin-top: 28px;
+    padding-right: 0;
   }
 }

@@ -4,6 +4,7 @@
 @import './__delete-button/place__delete-button.css';
 @import './__like/place__like.css';
 @import './__like/_active/place__like_active.css';
+@import './__photo-square-container/place__photo-square-container.css';
 
 .place {
   position: relative;

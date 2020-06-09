@@ -99,15 +99,18 @@
   </div>
   <template id="place">
     <article class="place">
-      <div class="place__photo"></div>
+      <div class="place__photo-square-container">
+        <img class="place__photo">
+      </div>
       <div class="place__panel">
         <h3 class="place__name"></h3>
-        <button type="button" class="place__like" title="Мне нравится"></button>
         <button type="submit" class="place__delete-button" title="Удалить"></button>
+        <button type="button" class="place__like" title="Мне нравится"></button>
       </div>
     </article>
   </template>
-  <script src="./javascripts/validate.js"></script>
+  <script src="./javascripts/places.js"></script>
   <script src="./javascripts/script.js"></script>
+  <script src="./javascripts/validate.js"></script>
 </body>
 </html>
