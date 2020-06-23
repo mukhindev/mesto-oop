@@ -1,82 +1,75 @@
-// Функция: Разрешить кнопку submit
-const enableSubmitButton = (buttonElement, options) => {
-  buttonElement.disabled = false
-  buttonElement.classList.remove(options.inactiveButtonClass)
-}
+export class FormValidator {
+  constructor (options, formElement) {
+    this._options = options
+    this._formElement = formElement
+  }
 
-// Функция: Рапретить кнопку submit
-const disableSubmitButton = (buttonElement, options) => {
-  buttonElement.disabled = true
-  buttonElement.classList.add(options.inactiveButtonClass)
-}
+  // Разрешить кнопку submit
+  _enableSubmitButton (buttonElement, options) {
+    buttonElement.disabled = false
+    buttonElement.classList.remove(options.inactiveButtonClass)
+  }
 
-// Функция: Проверка состояния валидации формы
-const checkValidityForm = (form, options) => {
-  const buttonElement = form.querySelector(options.submitButtonSelector)
-  if (form.checkValidity()) enableSubmitButton(buttonElement, options)
-  else disableSubmitButton(buttonElement, options)
-}
+  // Запретить кнопку submit
+  _disableSubmitButton (buttonElement, options) {
+    buttonElement.disabled = true
+    buttonElement.classList.add(options.inactiveButtonClass)
+  }
 
-// Функция: Получение span для вывода ошибки
-const getErrorSpan = (input) => {
-  return document.querySelector(`#${input.id}-error`)
-}
+  // Проверка состояния валидации формы
+  _checkValidityForm (form, options) {
+    const buttonElement = form.querySelector(options.submitButtonSelector)
+    if (form.checkValidity()) this._enableSubmitButton(buttonElement, options)
+    else this._disableSubmitButton(buttonElement, options)
+  }
 
-// Функция: Отобратить ошибки валидации поля
-const showInputError = (input, options) => {
-  const error = getErrorSpan(input)
-  error.textContent = input.validationMessage
-  error.classList.add(options.errorClass)
-  input.classList.add(options.inputErrorClass)
-}
+  // Получение span для вывода ошибки
+  _getErrorSpan (input) {
+    return document.querySelector(`#${input.id}-error`)
+  }
 
-// Функция: Скрыть ошибки валидации поля
-const hideInputError = (input, options) => {
-  const error = getErrorSpan(input)
-  error.textContent = ''
-  error.classList.remove(options.errorClass)
-  input.classList.remove(options.inputErrorClass)
-}
+  // Отобратить ошибки валидации поля
+  _showInputError (input, options) {
+    const error = this._getErrorSpan(input)
+    error.textContent = input.validationMessage
+    error.classList.add(options.errorClass)
+    input.classList.add(options.inputErrorClass)
+  }
 
-// Функция: Обрабатывать ввод в поле
-const handleInput = (input, options) => {
-  if (input.checkValidity()) hideInputError(input, options)
-  else showInputError(input, options)
-}
+  // Скрыть ошибки валидации поля
+  _hideInputError (input, options) {
+    const error = this._getErrorSpan(input)
+    error.textContent = ''
+    error.classList.remove(options.errorClass)
+    input.classList.remove(options.inputErrorClass)
+  }
 
-// Функция: Подключение валидации
-const enableValidation = (options) => {
-  // Поиск соответствующих форм
-  const formElements = Array.from(document.querySelectorAll(options.formSelector))
-  // Поиск полей в формах
-  formElements.forEach((formElement) => {
-    const inputElements = Array.from(formElement.querySelectorAll(options.inputSelector))
+  // Обрабатывать ввод в поле
+  _handleInput (input, options) {
+    if (input.checkValidity()) this._hideInputError(input, options)
+    else this._showInputError(input, options)
+  }
+
+  // Метод активации валидации
+  enableValidation () {
+    const inputElements = Array.from(this._formElement.querySelectorAll(this._options.inputSelector))
     inputElements.forEach((input) => {
       // На каждое поле вешается слушатель
       input.addEventListener('input', () => {
         // Вызывается обработчик поля
-        handleInput(input, options)
+        this._handleInput(input, this._options)
         // Проверка состояния валидации соответствующей формы
-        checkValidityForm(formElement, options)
+        this._checkValidityForm(this._formElement, this._options)
       })
     })
     // На формы вешается слушатель, ожидающий событие "showForm"
-    formElement.addEventListener('showForm', (e) => {
+    this._formElement.addEventListener('showForm', (e) => {
       inputElements.forEach(input => {
         // Сбрасываются ошибки полей
-        hideInputError(input, options)
+        this._hideInputError(input, this._options)
         // Проверка состояния валидации соответствующей формы
-        checkValidityForm(formElement, options)
+        this._checkValidityForm(this._formElement, this._options)
       })
     })
-  })
+  }
 }
-
-enableValidation({
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__save-button',
-  inactiveButtonClass: 'popup__save-button_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__error_visible'
-})
