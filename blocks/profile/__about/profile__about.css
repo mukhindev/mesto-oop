@@ -4,7 +4,6 @@
   font-weight: 400;
   font-size: 18px;
   line-height: 1.22;
-  grid-column: 1 / -1;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -15,7 +14,6 @@
     text-align: center;
   }
 }
-
 
 @media (max-width: 768px) {
   .profile__about {

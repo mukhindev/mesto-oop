@@ -1,4 +1,4 @@
-import { optionsValidate } from './config.js'
+import { optionsValidate } from './utils.js'
 import { initialPlaces } from './data.js'
 import { Card } from './Card.js'
 import { FormValidator } from './FormValidator.js'
