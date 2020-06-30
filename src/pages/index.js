@@ -1,7 +1,7 @@
-import { optionsValidate } from './utils.js'
-import { initialPlaces } from './data.js'
-import { Card } from './Card.js'
-import { FormValidator } from './FormValidator.js'
+import { optionsValidate } from '../utils/utils.js'
+import { initialPlaces } from '../utils/data.js'
+import { Card } from '../components/Card.js'
+import { FormValidator } from '../components/FormValidator.js'
 
 // Элементы профиля
 const userProfile = document.querySelector('.profile')

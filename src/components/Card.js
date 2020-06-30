@@ -1,4 +1,4 @@
-import { openPhoto } from './index.js'
+import { openPhoto } from '../pages/index.js'
 
 export class Card {
   constructor (data, cardSelector) {
