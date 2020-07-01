@@ -1,10 +1,10 @@
-# Проект 4: Место
+# Проект: Место (спринт 8)
 
 https://mukhindev-praktikum.github.io/mesto/
 
 ## Что это?
 
-Самостоятельная практическая работа, выполненная в рамках обучения на курсе [Веб-разработчик](https://praktikum.yandex.ru/web) от [Яндекс.Практикум](https://praktikum.yandex.ru) на спринте №6.
+Самостоятельная практическая работа, выполненная в рамках обучения на курсе [Веб-разработчик](https://praktikum.yandex.ru/web) от [Яндекс.Практикум](https://praktikum.yandex.ru) на спринте №4-8.
 
 ## Возможности приложения
 * Вывод при запуске карточек мест из массива с данными (файл `places.js`)
@@ -21,3 +21,4 @@ https://mukhindev-praktikum.github.io/mesto/
 ## Технологии
 
 HTML, CSS (Flex, Grid, BEM), JavaScript
+Webpack, Babel

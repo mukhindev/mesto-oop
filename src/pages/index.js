@@ -1,136 +1,131 @@
+import './index.css'
+import {
+  initialPlaces,
+  userProfileButtonAddPlace,
+  userProfileButtonEdit,
+  nameSelector,
+  aboutSelector,
+  placesContainerSelector,
+  placeTemplateSelector,
+  popupImageSelector,
+  popupPlaceSelector,
+  popupProfileSelector
+} from '../utils/constants.js'
+import Section from '../components/Section.js'
+import Card from '../components/Card.js'
+import UserInfo from '../components/UserInfo.js'
+import PopupWithImage from '../components/PopupWithImage.js'
+import PopupWithForm from '../components/PopupWithForm.js'
+import FormValidator from '../components/FormValidator.js'
 import { optionsValidate } from '../utils/utils.js'
-import { initialPlaces } from '../utils/data.js'
-import { Card } from '../components/Card.js'
-import { FormValidator } from '../components/FormValidator.js'
 
-// Элементы профиля
-const userProfile = document.querySelector('.profile')
-const userProfileName = userProfile.querySelector('.profile__name')
-const userProfileAbout = userProfile.querySelector('.profile__about')
-const userProfileButtonEdit = userProfile.querySelector('.profile__edit-button')
-const userProfileButtonAddPlace = userProfile.querySelector('.profile__add-button')
-
-// Попапы
-const popupProfile = document.querySelector('.popup_profile')
-const popupPlace = document.querySelector('.popup_place')
-const popupLightbox = document.querySelector('.popup_lightbox')
-const popupButtonsClose = document.querySelectorAll('.popup__close-button')
-
-// Форма профиля
-const formProfile = popupProfile.querySelector('.popup__form')
-const formInputProfileName = formProfile.querySelector('.popup__input_value_profile-name')
-const formInputProfileAbout = formProfile.querySelector('.popup__input_value_profile-about')
-const validateFormProfile = new FormValidator(optionsValidate, formProfile)
-validateFormProfile.enableValidation()
-
-// Форма добавления места
-const formPlace = popupPlace.querySelector('.popup__form')
-const formInputPlaceName = formPlace.querySelector('.popup__input_value_place-name')
-const formInputPlacePhoto = formPlace.querySelector('.popup__input_value_place-photo')
-const validateformPlace = new FormValidator(optionsValidate, formPlace)
-validateformPlace.enableValidation()
-
-// Lightbox
-const lightboxPhoto = popupLightbox.querySelector('.popup__lightbox-photo')
-const lightboxLabel = popupLightbox.querySelector('.popup__lightbox-label')
-
-// Объявление пользовательского события
+// Объявление пользовательского события, для отслеживания появления формы
 const eventShowForm = new CustomEvent('showForm')
 
-// Функция: Закрыть попап по клику на оверлее
-function closePopupByClickOverlay (e) {
-  if (e.target.classList.contains('popup')) {
-    closePopup(e.target)
+// Попап с фото места
+const popupPhoto = new PopupWithImage(popupImageSelector)
+
+// Активация слушателей попапа с фото места
+popupPhoto.setEventListeners()
+
+// Получение элемента карточки места
+const getCardElement = ({ name, link }) => {
+  const card = new Card({
+    cardSelector: placeTemplateSelector,
+    data: { name, link },
+    handleCardClick: () => {
+      popupPhoto.open({ name, link })
+    }
+  })
+  return card.generateCard()
+}
+
+// Формирование первоначальных карточек мест
+const cards = new Section({
+  containerSelector: placesContainerSelector,
+  items: initialPlaces,
+  renderer: ({ name, link }) => {
+    const cardElement = getCardElement({ name, link })
+    cards.addItem(cardElement)
   }
-}
+})
 
-// Функция: Закрывать попап по клавише Esc
-function closePopupByEsc (e) {
-  if (e.key === 'Escape') {
-    const openedPopup = document.querySelector('.popup_opened')
-    closePopup(openedPopup)
+// Вывод первоначальных карточек мест
+cards.renderItems()
+
+// Попап с формой нового места
+const popupPlace = new PopupWithForm({
+  popupSelector: popupPlaceSelector,
+  handleFormSubmit: (formData) => {
+    const {
+      popupInputPlaceName: name,
+      popupInputPlacePhoto: link
+    } = formData
+    const cardElement = getCardElement({ name, link })
+    cards.addItem(cardElement)
   }
-}
+})
 
-// Функция: Показать попап
-function showPopup (popup) {
-  document.addEventListener('keydown', closePopupByEsc)
-  popup.addEventListener('mousedown', closePopupByClickOverlay)
-  popup.classList.add('popup_opened')
-  // Если в попапе есть форма, на ней вызывается событие "showForm"
-  if (popup.querySelector('.popup__form')) {
-    popup.querySelector('.popup__form').dispatchEvent(eventShowForm)
+// Активация слушателей попапа с формой нового места
+popupPlace.setEventListeners()
+
+// Валидация формы нового места
+const validateformPlace = new FormValidator(
+  optionsValidate,
+  popupPlace.getForm()
+)
+validateformPlace.enableValidation()
+
+// Данные пользователя
+const user = new UserInfo({
+  nameSelector,
+  aboutSelector
+})
+
+// Попап с формой профиля
+const popupProfile = new PopupWithForm({
+  popupSelector: popupProfileSelector,
+  handleFormSubmit: (formData) => {
+    const {
+      popupInputProfileName: name,
+      popupInputProfileAbout: about
+    } = formData
+    user.setUserInfo({ name, about })
   }
-}
+})
 
-// Функция: Закрыть всплывающее окно
-function closePopup (popup) {
-  if (popup.target) popup = popup.target.closest('.popup')
-  if (!popup.classList.contains('popup_opened')) return
-  popup.classList.remove('popup_opened')
-  popup.removeEventListener('mousedown', closePopupByClickOverlay)
-  document.removeEventListener('keydown', closePopupByEsc)
-}
+// Активация слушателей попапа с формой профиля
+popupProfile.setEventListeners()
 
-// Функция: открывает всплавающее окно
-function showPopupProfile () {
-  formInputProfileName.value = userProfileName.textContent
-  formInputProfileAbout.value = userProfileAbout.textContent
-  showPopup(popupProfile)
-}
+// Валидация формы профиля
+const validateformProfile = new FormValidator(
+  optionsValidate,
+  popupProfile.getForm()
+)
+validateformProfile.enableValidation()
 
-// Функция: открывает всплавающее окно и заносит в форму текщие данные
+// Отобразить попап с формой нового места
 function showPopupPlace () {
-  formInputPlaceName.value = ''
-  formInputPlacePhoto.value = ''
-  showPopup(popupPlace)
-}
-
-// Функция: Применить изменения профиля
-function applyСhangesProfile (e) {
-  e.preventDefault()
-  userProfileName.textContent = formInputProfileName.value
-  userProfileAbout.textContent = formInputProfileAbout.value
-  closePopup(popupProfile)
-}
-
-// Функция: Создание новой карточки
-function addPlaceCard (e) {
-  e.preventDefault()
-  const place = {
-    name: formInputPlaceName.value,
-    link: formInputPlacePhoto.value
-  }
-  const card = new Card(place, '#place').generateCard()
-  places.prepend(card)
-  closePopup(popupPlace)
-}
-
-// Функция: Отобразить фото
-export function openPhoto ({ name, link }) {
-  lightboxPhoto.src = link
-  lightboxPhoto.alt = `Фотография места ${name}`
-  lightboxLabel.textContent = name
-  showPopup(popupLightbox)
-}
-
-// Слушатели
-userProfileButtonEdit.addEventListener('click', showPopupProfile)
-userProfileButtonAddPlace.addEventListener('click', showPopupPlace)
-popupButtonsClose.forEach(button => button.addEventListener('click', closePopup))
-formProfile.addEventListener('submit', applyСhangesProfile)
-formPlace.addEventListener('submit', addPlaceCard)
-
-// Элемент вывода мест
-const places = document.querySelector('.places')
-
-// Функция: Вывод имеющихся карточек
-function initRender () {
-  initialPlaces.forEach(place => {
-    const card = new Card(place, '#place').generateCard()
-    places.append(card)
+  popupPlace.open({
+    // Событие которое произойдёт при открытии
+    event: eventShowForm
   })
 }
 
-// Инициализация
-initRender()
+// Отобразить попап с формой профиля
+function showPopupProfile () {
+  const userInfo = user.getUserInfo()
+  popupProfile.open({
+    // Передаётся name и about в поля формы
+    data: {
+      popupInputProfileName: userInfo.name,
+      popupInputProfileAbout: userInfo.about
+    },
+    // Событие которое произойдёт при открытии
+    event: eventShowForm
+  })
+}
+
+// Слушатели кнопок
+userProfileButtonAddPlace.addEventListener('click', showPopupPlace)
+userProfileButtonEdit.addEventListener('click', showPopupProfile)

@@ -1,9 +1,8 @@
-import { openPhoto } from '../pages/index.js'
-
-export class Card {
-  constructor (data, cardSelector) {
+export default class Card {
+  constructor ({ data, cardSelector, handleCardClick }) {
     this._name = data.name
     this._link = data.link
+    this._handleCardClick = handleCardClick
     this._cardSelector = cardSelector
   }
 
@@ -16,10 +15,7 @@ export class Card {
 
   // Обработчик клика по фото
   _handleClickPhoto () {
-    openPhoto({
-      name: this._name,
-      link: this._link
-    })
+    return this._handleCardClick()
   }
 
   // Обработчик клика кнопки лайка

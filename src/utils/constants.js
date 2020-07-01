@@ -1,3 +1,4 @@
+// Первоночальный массив данных
 export const initialPlaces = [
   {
     name: 'Архыз',
@@ -24,3 +25,20 @@ export const initialPlaces = [
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   }
 ]
+
+// Элементы профиля
+export const userProfileButtonEdit = document.querySelector('.profile__edit-button')
+export const userProfileButtonAddPlace = document.querySelector('.profile__add-button')
+
+// Селекторы профиля
+export const nameSelector = '.profile__name'
+export const aboutSelector = '.profile__about'
+
+// Селекторы карточек
+export const placesContainerSelector = '.places'
+export const placeTemplateSelector = '#place'
+
+// Селекторы попапов
+export const popupImageSelector = '.popup_lightbox'
+export const popupPlaceSelector = '.popup_place'
+export const popupProfileSelector = '.popup_profile'
