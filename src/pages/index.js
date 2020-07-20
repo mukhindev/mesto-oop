@@ -5,6 +5,7 @@ import {
   userProfileButtonEdit,
   nameSelector,
   aboutSelector,
+  avatarSelector,
   placesContainerSelector,
   placeTemplateSelector,
   popupImageSelector,
@@ -17,7 +18,8 @@ import UserInfo from '../components/UserInfo.js'
 import PopupWithImage from '../components/PopupWithImage.js'
 import PopupWithForm from '../components/PopupWithForm.js'
 import FormValidator from '../components/FormValidator.js'
-import { optionsValidate } from '../utils/utils.js'
+import { optionsValidate, configApi } from '../utils/utils.js'
+import Api from '../components/Api.js'
 
 // Объявление пользовательского события, для отслеживания появления формы
 const eventShowForm = new CustomEvent('showForm')
@@ -40,7 +42,9 @@ const getCardElement = ({ name, link }) => {
   return card.generateCard()
 }
 
-// Формирование первоначальных карточек мест
+// API
+const api = new Api(configApi)
+
 const cards = new Section({
   containerSelector: placesContainerSelector,
   items: initialPlaces,
@@ -79,8 +83,16 @@ validateformPlace.enableValidation()
 // Данные пользователя
 const user = new UserInfo({
   nameSelector,
-  aboutSelector
+  aboutSelector,
+  avatarSelector
 })
+
+// Получение данных пользователя с сервера
+api.getMe()
+  .then(({ name, about, avatar, _id }) => {
+    console.log(name, about, avatar, _id)
+    user.setUserInfo({ name, about, avatar, id: _id })
+  })
 
 // Попап с формой профиля
 const popupProfile = new PopupWithForm({

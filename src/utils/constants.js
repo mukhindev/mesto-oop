@@ -33,6 +33,7 @@ export const userProfileButtonAddPlace = document.querySelector('.profile__add-b
 // Селекторы профиля
 export const nameSelector = '.profile__name'
 export const aboutSelector = '.profile__about'
+export const avatarSelector = '.profile__avatar'
 
 // Селекторы карточек
 export const placesContainerSelector = '.places'
