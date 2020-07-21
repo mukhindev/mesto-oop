@@ -10,6 +10,7 @@ import {
   popupImageSelector,
   popupPlaceSelector,
   popupProfileSelector,
+  popupAvatarSelector,
   popupDeleteSelector
 } from '../utils/constants.js'
 import Section from '../components/Section.js'
@@ -58,8 +59,20 @@ const getCardElement = (data, userData) => {
       popupPhoto.open(data)
     },
     handleCardDelete: ({ cardElement, cardId }) => {
-      console.log('Удаление карточки', cardElement, cardId)
       popupDelete.open({ cardElement, cardId })
+    },
+    handleCardLike: ({ cardId }) => {
+      if (card.isLiked()) {
+        api.dislikeCard(cardId)
+          .then((data) => {
+            card.updateLikesState(data)
+          })
+      } else {
+        api.likeCard(cardId)
+          .then((data) => {
+            card.updateLikesState(data)
+          })
+      }
     }
   })
   return card.generateCard()
@@ -84,7 +97,6 @@ const popupPlace = new PopupWithForm({
     } = formData
     api.createCard({ name, link })
       .then((data) => {
-        console.log(data, user.getUserInfo())
         const cardElement = getCardElement(data, user.getUserInfo())
         cards.addItem(cardElement)
       })
@@ -100,6 +112,46 @@ const validateformPlace = new FormValidator(
   popupPlace.getForm()
 )
 validateformPlace.enableValidation()
+
+// Отобразить попап с формой нового места
+function showPopupPlace () {
+  popupPlace.open({
+    // Событие которое произойдёт при открытии
+    event: eventShowForm
+  })
+}
+
+// 
+const popupAvatar = new PopupWithForm({
+  popupSelector: popupAvatarSelector,
+  handleFormSubmit: (formData) => {
+    const {
+      popupInputAvatarPhoto: link
+    } = formData
+    api.updateAvatar(link)
+      .then((data) => {
+        user.setUserInfo({ avatar: link })
+      })
+  }
+})
+
+// 
+popupAvatar.setEventListeners()
+
+// 
+const validateformAvatar = new FormValidator(
+  optionsValidate,
+  popupAvatar.getForm()
+)
+validateformAvatar.enableValidation()
+
+//
+function showPopupAvatar () {
+  popupAvatar.open({
+    // Событие которое произойдёт при открытии
+    event: eventShowForm
+  })
+}
 
 // Данные пользователя
 const user = new UserInfo({
@@ -119,7 +171,6 @@ const popupProfile = new PopupWithForm({
     user.setUserInfo({ name, about })
     api.updateMe({ name, about })
       .then((data) => {
-        console.log('Обновление профиля', data)
       })
   }
 })
@@ -133,14 +184,6 @@ const validateformProfile = new FormValidator(
   popupProfile.getForm()
 )
 validateformProfile.enableValidation()
-
-// Отобразить попап с формой нового места
-function showPopupPlace () {
-  popupPlace.open({
-    // Событие которое произойдёт при открытии
-    event: eventShowForm
-  })
-}
 
 // Отобразить попап с формой профиля
 function showPopupProfile () {
@@ -159,11 +202,13 @@ function showPopupProfile () {
 // Слушатели кнопок
 document.querySelector(buttonAddPlaceSelector).addEventListener('click', showPopupPlace)
 document.querySelector(buttonEditProfileSelector).addEventListener('click', showPopupProfile)
+document.querySelector(avatarSelector).addEventListener('click', showPopupAvatar)
 
 // Инициализация профиля и карточек
 Promise.all([api.getMe(), api.getCards()])
   .then(([ userData, cardsData ]) => {
     // Установка имени пользователя и о пользователе
     user.setUserInfo(userData)
+    // Рендер карточек, передача пользователя как payload
     cards.renderItems(cardsData, userData)
   })

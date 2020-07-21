@@ -59,4 +59,32 @@ export default class Api {
       .catch(this._handleError)
   }
 
+  likeCard (cardId) {
+    return fetch(`${this.url}/cards/likes/${cardId}`, { 
+      method: 'PUT',
+      headers: this.headers,
+    })
+      .then(this._handleResponse)
+      .catch(this._handleError)
+  }
+
+  dislikeCard (cardId) {
+    return fetch(`${this.url}/cards/likes/${cardId}`, { 
+      method: 'DELETE',
+      headers: this.headers,
+    })
+      .then(this._handleResponse)
+      .catch(this._handleError)
+  }
+
+  updateAvatar (avatar) {
+    return fetch(`${this.url}/users/me/avatar`, { 
+      method: 'PATCH',
+      headers: this.headers,
+      body: JSON.stringify({ avatar })
+    })
+      .then(this._handleResponse)
+      .catch(this._handleError)
+  }
+
 }

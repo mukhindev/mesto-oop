@@ -12,10 +12,10 @@ export default class Section {
     this._container.append(element)
   }
 
-  renderItems (items, userData) {
+  renderItems (items, payload) {
     this._clear()
     items.forEach(item => {
-      this._renderer(item, userData)
+      this._renderer(item, payload)
     })
   }
 }
