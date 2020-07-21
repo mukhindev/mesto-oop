@@ -1,9 +1,13 @@
 export default class Card {
-  constructor ({ data, cardSelector, handleCardClick }) {
+  constructor ({ data, userData, cardSelector, handleCardClick, handleCardDelete }) {
+    this._data = data
+    this._userData = userData
     this._name = data.name
     this._link = data.link
     this._handleCardClick = handleCardClick
+    this._handleCardDelete = handleCardDelete
     this._cardSelector = cardSelector
+    console.log(this._data)
   }
 
   // Получение шаблона карточки
@@ -15,7 +19,7 @@ export default class Card {
 
   // Обработчик клика по фото
   _handleClickPhoto () {
-    return this._handleCardClick()
+    this._handleCardClick()
   }
 
   // Обработчик клика кнопки лайка
@@ -25,7 +29,10 @@ export default class Card {
 
   // Обработчик клика кнопки удаления карточки
   _handleClickDeleteButton () {
-    this._placeСard.remove()
+    this._handleCardDelete({
+      cardElement: this._placeСard, 
+      cardId: this._data._id
+    })
   }
 
   // Установка слушателей
@@ -49,11 +56,16 @@ export default class Card {
     this._placePhoto = this._placeСard.querySelector('.place__photo')
     this._placeName = this._placeСard.querySelector('.place__name')
     this._buttonLike = this._placeСard.querySelector('.place__like')
+    this._counterLike = this._placeСard.querySelector('.place__like-counter')
     this._buttonDelete = this._placeСard.querySelector('.place__delete-button')
+    if (this._userData._id !== this._data.owner._id) this._buttonDelete.remove()
     // Назначение атрибутов для элементом
     this._placePhoto.src = this._link
     this._placePhoto.alt = `Фотография места ${this._name}`
+    // Вывод названия места
     this._placeName.textContent = this._name
+    // Вывод кол-ва лайков на карточке
+    this._counterLike.textContent = this._data.likes?.length || 0
     // Установка слушателей
     this._setEventListeners()
     return this._placeСard

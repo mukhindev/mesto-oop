@@ -1,8 +1,7 @@
 import './index.css'
 import {
-  initialPlaces,
-  userProfileButtonAddPlace,
-  userProfileButtonEdit,
+  buttonEditProfileSelector,
+  buttonAddPlaceSelector,
   nameSelector,
   aboutSelector,
   avatarSelector,
@@ -10,16 +9,21 @@ import {
   placeTemplateSelector,
   popupImageSelector,
   popupPlaceSelector,
-  popupProfileSelector
+  popupProfileSelector,
+  popupDeleteSelector
 } from '../utils/constants.js'
 import Section from '../components/Section.js'
 import Card from '../components/Card.js'
 import UserInfo from '../components/UserInfo.js'
 import PopupWithImage from '../components/PopupWithImage.js'
 import PopupWithForm from '../components/PopupWithForm.js'
+import PopupWithDelete from '../components/PopupWithDelete.js'
 import FormValidator from '../components/FormValidator.js'
 import { optionsValidate, configApi } from '../utils/utils.js'
 import Api from '../components/Api.js'
+
+// API
+const api = new Api(configApi)
 
 // Объявление пользовательского события, для отслеживания появления формы
 const eventShowForm = new CustomEvent('showForm')
@@ -30,32 +34,45 @@ const popupPhoto = new PopupWithImage(popupImageSelector)
 // Активация слушателей попапа с фото места
 popupPhoto.setEventListeners()
 
+// Попап с удалением карточки
+const popupDelete = new PopupWithDelete({
+  popupSelector: popupDeleteSelector,
+  handleButtonOk: ({ cardElement, cardId }) => {
+    api.deleteCard(cardId)
+      .then(() => {
+        cardElement.remove()
+      })
+  }
+})
+
+// Активация слушателей попапа c удалением
+popupDelete.setEventListeners()
+
 // Получение элемента карточки места
-const getCardElement = ({ name, link }) => {
+const getCardElement = (data, userData) => {
   const card = new Card({
     cardSelector: placeTemplateSelector,
-    data: { name, link },
+    data,
+    userData,
     handleCardClick: () => {
-      popupPhoto.open({ name, link })
+      popupPhoto.open(data)
+    },
+    handleCardDelete: ({ cardElement, cardId }) => {
+      console.log('Удаление карточки', cardElement, cardId)
+      popupDelete.open({ cardElement, cardId })
     }
   })
   return card.generateCard()
 }
 
-// API
-const api = new Api(configApi)
-
+// Секция карточек
 const cards = new Section({
   containerSelector: placesContainerSelector,
-  items: initialPlaces,
-  renderer: ({ name, link }) => {
-    const cardElement = getCardElement({ name, link })
+  renderer: (data, userData) => {
+    const cardElement = getCardElement(data, userData)
     cards.addItem(cardElement)
   }
 })
-
-// Вывод первоначальных карточек мест
-cards.renderItems()
 
 // Попап с формой нового места
 const popupPlace = new PopupWithForm({
@@ -65,8 +82,11 @@ const popupPlace = new PopupWithForm({
       popupInputPlaceName: name,
       popupInputPlacePhoto: link
     } = formData
-    const cardElement = getCardElement({ name, link })
-    cards.addItem(cardElement)
+    api.createCard({ name, link })
+      .then((data) => {
+        const cardElement = getCardElement(data, user.getUserInfo())
+        cards.addItem(cardElement)
+      })
   }
 })
 
@@ -87,13 +107,6 @@ const user = new UserInfo({
   avatarSelector
 })
 
-// Получение данных пользователя с сервера
-api.getMe()
-  .then(({ name, about, avatar, _id }) => {
-    console.log(name, about, avatar, _id)
-    user.setUserInfo({ name, about, avatar, id: _id })
-  })
-
 // Попап с формой профиля
 const popupProfile = new PopupWithForm({
   popupSelector: popupProfileSelector,
@@ -103,6 +116,10 @@ const popupProfile = new PopupWithForm({
       popupInputProfileAbout: about
     } = formData
     user.setUserInfo({ name, about })
+    api.updateMe({ name, about })
+      .then((data) => {
+        console.log('Обновление профиля', data)
+      })
   }
 })
 
@@ -139,5 +156,14 @@ function showPopupProfile () {
 }
 
 // Слушатели кнопок
-userProfileButtonAddPlace.addEventListener('click', showPopupPlace)
-userProfileButtonEdit.addEventListener('click', showPopupProfile)
+document.querySelector(buttonAddPlaceSelector).addEventListener('click', showPopupPlace)
+document.querySelector(buttonEditProfileSelector).addEventListener('click', showPopupProfile)
+
+// Инициализация профиля и карточек
+Promise.all([api.getMe(), api.getCards()])
+  .then(([ userData, cardsData ]) => {
+    getProfileState(userData)
+    getInitialCards(cardsData, userData)
+    user.setUserInfo(userData)
+    cards.renderItems()
+  })

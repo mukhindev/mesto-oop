@@ -90,6 +90,13 @@
         </form>
       </div>
     </div>
+    <div class="popup popup_delete">
+      <div class="popup__container">
+        <button type="button" class="popup__close-button"></button>
+        <h3 class="popup__title">Вы уверены?</h3>
+        <button type="button" class="popup__save-button">Да</button>
+      </div>
+    </div>
     <div class="popup popup_opacity_low popup_lightbox">
       <div class="popup__lightbox-wrapper">
         <button type="button" class="popup__close-button"></button>
@@ -106,7 +113,10 @@
       <div class="place__panel">
         <h3 class="place__name"></h3>
         <button type="submit" class="place__delete-button" title="Удалить"></button>
-        <button type="button" class="place__like" title="Мне нравится"></button>
+        <div class="place__like-group">
+          <button type="button" class="place__like" title="Мне нравится"></button>
+          <span class="place__like-counter">0</span>
+        </div>
       </div>
     </article>
   </template>

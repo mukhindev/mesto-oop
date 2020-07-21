@@ -1,7 +1,6 @@
 .place__like {
   width: 21px;
   height: 18px;
-  margin-left: 12px;
   flex-shrink: 0;
   border: none;
   background-color: transparent;
