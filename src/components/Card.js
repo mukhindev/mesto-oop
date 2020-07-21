@@ -7,7 +7,6 @@ export default class Card {
     this._handleCardClick = handleCardClick
     this._handleCardDelete = handleCardDelete
     this._cardSelector = cardSelector
-    console.log(this._data)
   }
 
   // Получение шаблона карточки

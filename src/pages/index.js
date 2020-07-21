@@ -84,6 +84,7 @@ const popupPlace = new PopupWithForm({
     } = formData
     api.createCard({ name, link })
       .then((data) => {
+        console.log(data, user.getUserInfo())
         const cardElement = getCardElement(data, user.getUserInfo())
         cards.addItem(cardElement)
       })
@@ -162,8 +163,7 @@ document.querySelector(buttonEditProfileSelector).addEventListener('click', show
 // Инициализация профиля и карточек
 Promise.all([api.getMe(), api.getCards()])
   .then(([ userData, cardsData ]) => {
-    getProfileState(userData)
-    getInitialCards(cardsData, userData)
+    // Установка имени пользователя и о пользователе
     user.setUserInfo(userData)
-    cards.renderItems()
+    cards.renderItems(cardsData, userData)
   })
