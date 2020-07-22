@@ -114,6 +114,7 @@ const popupPlace = new PopupWithForm({
       })
       .catch((error) => {
         console.log(error)
+        popupPlace.hideProcess()
       })
   }
 })
@@ -152,6 +153,7 @@ const popupAvatar = new PopupWithForm({
       })
       .catch((error) => {
         console.log(error)
+        popupPlace.hideProcess()
       })
   }
 })
@@ -198,6 +200,7 @@ const popupProfile = new PopupWithForm({
       })
       .catch((error) => {
         console.log(error)
+        popupProfile.hideProcess()
       })
   }
 })

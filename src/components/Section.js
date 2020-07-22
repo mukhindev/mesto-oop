@@ -9,12 +9,12 @@ export default class Section {
   }
 
   addItem (element) {
-    this._container.append(element)
+    this._container.prepend(element)
   }
 
   renderItems (items, payload) {
     this._clear()
-    items.forEach(item => {
+    items.reverse().forEach(item => {
       this._renderer(item, payload)
     })
   }
