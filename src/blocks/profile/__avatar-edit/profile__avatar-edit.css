@@ -5,6 +5,9 @@
   border-radius: 100%;
   cursor: pointer;
   flex-shrink: 0;
+  padding: 0;
+  border: 0;
+  outline: none;
 }
 
 @media (max-width: 1024px) {

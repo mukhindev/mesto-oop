@@ -43,6 +43,9 @@ const popupDelete = new PopupWithDelete({
       .then(() => {
         cardElement.remove()
       })
+      .catch((error) => {
+        console.log(error)
+      })
   }
 })
 
@@ -67,10 +70,16 @@ const getCardElement = (data, userData) => {
           .then((data) => {
             card.updateLikesState(data)
           })
+          .catch((error) => {
+            console.log(error)
+          })
       } else {
         api.likeCard(cardId)
           .then((data) => {
             card.updateLikesState(data)
+          })
+          .catch((error) => {
+            console.log(error)
           })
       }
     }
@@ -95,10 +104,16 @@ const popupPlace = new PopupWithForm({
       popupInputPlaceName: name,
       popupInputPlacePhoto: link
     } = formData
+    popupPlace.showProcess()
     api.createCard({ name, link })
       .then((data) => {
         const cardElement = getCardElement(data, user.getUserInfo())
         cards.addItem(cardElement)
+        popupPlace.hideProcess()
+        popupPlace.close()
+      })
+      .catch((error) => {
+        console.log(error)
       })
   }
 })
@@ -128,9 +143,15 @@ const popupAvatar = new PopupWithForm({
     const {
       popupInputAvatarPhoto: link
     } = formData
+    popupAvatar.showProcess()
     api.updateAvatar(link)
-      .then((data) => {
+      .then(() => {
         user.setUserInfo({ avatar: link })
+        popupAvatar.hideProcess()
+        popupAvatar.close()
+      })
+      .catch((error) => {
+        console.log(error)
       })
   }
 })
@@ -168,9 +189,15 @@ const popupProfile = new PopupWithForm({
       popupInputProfileName: name,
       popupInputProfileAbout: about
     } = formData
-    user.setUserInfo({ name, about })
+    popupProfile.showProcess()
     api.updateMe({ name, about })
-      .then((data) => {
+      .then(() => {
+        user.setUserInfo({ name, about })
+        popupProfile.hideProcess()
+        popupProfile.close()
+      })
+      .catch((error) => {
+        console.log(error)
       })
   }
 })
@@ -211,4 +238,7 @@ Promise.all([api.getMe(), api.getCards()])
     user.setUserInfo(userData)
     // Рендер карточек, передача пользователя как payload
     cards.renderItems(cardsData, userData)
+  })
+  .catch((error) => {
+    console.log(error)
   })
