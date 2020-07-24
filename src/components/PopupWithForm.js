@@ -47,7 +47,7 @@ export default class PopupWithForm extends Popup {
     super.close()
     this._formElement.reset()
   }
-  
+
   showProcess () {
     this._buttonSave.textContent = 'Сохранение...'
     this._buttonSave.disabled = true

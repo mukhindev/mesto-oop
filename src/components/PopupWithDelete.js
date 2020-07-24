@@ -15,7 +15,7 @@ export default class PopupWithDelete extends Popup {
     })
   }
 
-  open(element) {
+  open (element) {
     super.open()
     // Елемент для удаления
     this._elementForDelete = element

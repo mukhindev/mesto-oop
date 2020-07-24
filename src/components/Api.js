@@ -25,7 +25,7 @@ export default class Api {
   }
 
   updateMe ({ name, about }) {
-    return fetch(`${this.url}/users/me`, { 
+    return fetch(`${this.url}/users/me`, {
       method: 'PATCH',
       headers: this.headers,
       body: JSON.stringify({ name, about })
@@ -41,7 +41,7 @@ export default class Api {
   }
 
   createCard ({ name, link }) {
-    return fetch(`${this.url}/cards`, { 
+    return fetch(`${this.url}/cards`, {
       method: 'POST',
       headers: this.headers,
       body: JSON.stringify({ name, link })
@@ -51,34 +51,34 @@ export default class Api {
   }
 
   deleteCard (cardId) {
-    return fetch(`${this.url}/cards/${cardId}`, { 
+    return fetch(`${this.url}/cards/${cardId}`, {
       method: 'DELETE',
-      headers: this.headers,
+      headers: this.headers
     })
       .then(this._handleResponse)
       .catch(this._handleError)
   }
 
   likeCard (cardId) {
-    return fetch(`${this.url}/cards/likes/${cardId}`, { 
+    return fetch(`${this.url}/cards/likes/${cardId}`, {
       method: 'PUT',
-      headers: this.headers,
+      headers: this.headers
     })
       .then(this._handleResponse)
       .catch(this._handleError)
   }
 
   dislikeCard (cardId) {
-    return fetch(`${this.url}/cards/likes/${cardId}`, { 
+    return fetch(`${this.url}/cards/likes/${cardId}`, {
       method: 'DELETE',
-      headers: this.headers,
+      headers: this.headers
     })
       .then(this._handleResponse)
       .catch(this._handleError)
   }
 
   updateAvatar (avatar) {
-    return fetch(`${this.url}/users/me/avatar`, { 
+    return fetch(`${this.url}/users/me/avatar`, {
       method: 'PATCH',
       headers: this.headers,
       body: JSON.stringify({ avatar })
@@ -86,5 +86,4 @@ export default class Api {
       .then(this._handleResponse)
       .catch(this._handleError)
   }
-
 }
