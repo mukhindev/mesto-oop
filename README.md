@@ -1,6 +1,6 @@
 # Проект: Место (спринт 8)
 
-https://mukhindev-praktikum.github.io/mesto/
+https://mukhindev.github.io/mesto/
 
 ## Что это?
 
