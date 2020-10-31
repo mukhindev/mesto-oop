@@ -1,24 +1,18 @@
-# Проект: Место (спринт 8)
+# Проект Mesto (с применением ООП-подхода)
 
-https://mukhindev.github.io/mesto/
+https://mukhindev.github.io/mesto-oop/  
 
-## Что это?
+Фронтенд-часть самостоятельной практической работы, выполненной в рамках обучения на курсе [Веб-разработчик](https://praktikum.yandex.ru/web) от [Яндекс.Практикум](https://praktikum.yandex.ru) на спринтах №4-9.
 
-Самостоятельная практическая работа, выполненная в рамках обучения на курсе [Веб-разработчик](https://praktikum.yandex.ru/web) от [Яндекс.Практикум](https://praktikum.yandex.ru) на спринте №4-8.
+## Ссылки
 
-## Возможности приложения
-* Вывод при запуске карточек мест из массива с данными (файл `places.js`)
-* Возможность редактирования имени и о себе
-* Возможность добавления новой карточки места
-* Валидация ввода пользовательских данных
-* Возможность удаления любых карточек мест
+Веб-приложение "Mesto (с применением ООП-подхода)": https://mukhindev.github.io/mesto-oop/  
+Веб-приложение "Mesto (React)": https://mesto.mukhin.dev/  
+
+## Технологии
+
+HTML, CSS (Flex, Grid, BEM), JavaScript с применением ООП-подхода, Webpack, Babel
 
 ## Copyright
 
 * Шрифты семейства Intro — https://rsms.me/inter/
-* Изображения взяты с [unsplash.com](https://unsplash.com)
-
-## Технологии
-
-HTML, CSS (Flex, Grid, BEM), JavaScript
-Webpack, Babel
