@@ -7,7 +7,7 @@ https://mukhindev.github.io/mesto-oop/
 ## Ссылки
 
 Веб-приложение "Mesto (с применением ООП-подхода)": https://mukhindev.github.io/mesto-oop/  
-Веб-приложение "Mesto (React)": https://mesto.mukhin.dev/  
+Репозиторий фронтенда на React: https://github.com/mukhindev-praktikum/mesto-react  
 
 ## Технологии
 
